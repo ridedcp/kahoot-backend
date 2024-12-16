@@ -19,6 +19,9 @@ def join_game(game_id):
         return jsonify({"error": "Game not found"}), 404
 
     name = request.json.get('name')
+    if not name:
+        return jsonify({"error": "Name is required"}), 400
+
     games[game_id]['participants'].append(name)
     return jsonify({"message": f"{name} joined the game", "game_id": game_id})
 
@@ -32,3 +35,7 @@ def get_participants(game_id):
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))  # Render asigna el puerto automáticamente
     app.run(host='0.0.0.0', port=port)
+
+@app.route('/test_post', methods=['POST'])
+def test_post():
+    return jsonify({"message": "POST request successful"})
