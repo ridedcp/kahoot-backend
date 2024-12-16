@@ -1,5 +1,7 @@
 from flask import Flask, request, jsonify
 
+import os
+
 app = Flask(__name__)
 
 # Estructura de datos en memoria (simple para empezar)
@@ -28,4 +30,5 @@ def get_participants(game_id):
     return jsonify({"participants": games[game_id]['participants']})
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    port = int(os.environ.get("PORT", 5000))  # Render asigna el puerto automáticamente
+    app.run(host='0.0.0.0', port=port)
